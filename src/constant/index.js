@@ -1,0 +1,1 @@
+export { navbarMenu } from './general'
