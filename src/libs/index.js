@@ -1,4 +1,5 @@
 export { Columns, Column } from './columns'
-export { Accordion, Navbar, RouteWithSubRoutes, Tabs } from './components'
+export { Accordion, Modal, Navbar, RouteWithSubRoutes, Tabs } from './components'
 export { Box, Button, Table } from './elements'
+export { Input } from './form'
 export { Container, Level } from './layout'

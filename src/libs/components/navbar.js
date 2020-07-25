@@ -7,7 +7,7 @@ const Navbar = ({ objectList = [] }) => {
 
     return (
         <aside className='navbar column is-2'>
-            <p class='menu-label'>Menu</p>
+            <p className='menu-label'>Menu</p>
             <ul className='menu-list'>
                 {objectList.map((item, index) => {
                     const isMatch = location.pathname === item.path

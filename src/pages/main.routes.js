@@ -14,23 +14,13 @@ const routes = [
         }),
     },
     {
-        path: '/psi',
-        title: 'PSI',
+        path: '/master',
+        title: 'Master',
         exact: true,
         component: Loadable({
-            loader: () => import(/* webpackChunkName: 'psi' */ './psi'),
+            loader: () => import(/* webpackChunkName: 'master' */ './master'),
             loading: () => null,
-            modules: ['psi'],
-        }),
-    },
-    {
-        path: '/promethee',
-        title: 'Promethee',
-        exact: true,
-        component: Loadable({
-            loader: () => import(/* webpackChunkName: 'promethee' */ './promethee'),
-            loading: () => null,
-            modules: ['promethee'],
+            modules: ['master'],
         }),
     },
     {

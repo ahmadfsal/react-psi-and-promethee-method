@@ -1,9 +1,17 @@
 import React, { memo } from 'react'
 import classnames from 'classnames'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Button } from 'libs'
 
-const Box = ({ children, className, title, icon, onClickIcon }) => {
+const Box = ({
+    children,
+    className,
+    title,
+    buttonTitle,
+    onClick,
+    buttonClass
+}) => {
     const classes = classnames('box', className)
+    const btnClasses = classnames('is-light', buttonClass)
 
     return (
         <div className={classes}>
@@ -12,12 +20,11 @@ const Box = ({ children, className, title, icon, onClickIcon }) => {
                     <div className='level-left has-text-weight-medium has-text-black'>
                         {title}
                     </div>
-                    <div className='level-right'>
-                        <FontAwesomeIcon
-                            icon={icon && icon}
-                            onClick={onClickIcon}
-                        />
-                    </div>
+                    {buttonTitle && (
+                        <Button onClick={onClick} className={btnClasses}>
+                            {buttonTitle}
+                        </Button>
+                    )}
                 </div>
             )}
             {children}
