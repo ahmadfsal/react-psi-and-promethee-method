@@ -1,29 +1,10 @@
 import React, { memo } from 'react'
-import classnames from 'classnames'
-import { Link, useLocation } from 'react-router-dom'
 
-const Navbar = ({ objectList = [] }) => {
-    const location = useLocation()
-
+const Navbar = ({ children }) => {
     return (
         <aside className='navbar column is-2'>
             <p className='menu-label'>Menu</p>
-            <ul className='menu-list'>
-                {objectList.map((item, index) => {
-                    const isMatch = location.pathname === item.path
-                    const linkClasses = classnames(isMatch ? 'is-active' : '')
-
-                    return (
-                        <Link
-                            key={index}
-                            to={item.path}
-                            className={linkClasses}
-                        >
-                            {item.title}
-                        </Link>
-                    )
-                })}
-            </ul>
+            <ul className='menu-list'>{children}</ul>
         </aside>
     )
 }

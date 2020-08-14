@@ -1,6 +1,8 @@
 import React, { Component, createRef } from 'react'
 import bulmaCollapsible from '@creativebulma/bulma-collapsible'
 import classnames from 'classnames'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
 class Accordion extends Component {
     constructor(props) {
@@ -33,19 +35,19 @@ class Accordion extends Component {
                     >
                         {title}
                         <span className='icon'>
-                            <i className='fas fa-angle-down' aria-hidden='true'></i>
+                            <FontAwesomeIcon icon={faChevronDown} />
                         </span>
                     </a>
                 </header>
-                <div className='card-content'>
-                    <div
-                        id='collapsible'
-                        className={contentClasses}
-                        data-parent='accordion'
-                    >
-                        {children}
-                    </div>
+                {/* <div className='card-content'> */}
+                <div
+                    id='collapsible'
+                    className={contentClasses}
+                    data-parent='accordion'
+                >
+                    {children}
                 </div>
+                {/* </div> */}
             </div>
         )
     }

@@ -24,13 +24,33 @@ const routes = [
         }),
     },
     {
-        path: '/laporan',
-        title: 'Laporan',
+        path: '/pengajuan',
+        title: 'Pengajuan',
         exact: true,
         component: Loadable({
-            loader: () => import(/* webpackChunkName: 'laporan' */ './laporan'),
+            loader: () => import(/* webpackChunkName: 'pengajuan' */ './pengajuan'),
             loading: () => null,
-            modules: ['laporan'],
+            modules: ['pengajuan'],
+        }),
+    },
+    {
+        path: '/laporan/psi',
+        title: 'Laporan PSI',
+        exact: true,
+        component: Loadable({
+            loader: () => import(/* webpackChunkName: 'laporan-psi' */ './laporan-psi'),
+            loading: () => null,
+            modules: ['laporan-psi'],
+        }),
+    },
+    {
+        path: '/laporan/promethee',
+        title: 'Laporan Promethee',
+        exact: true,
+        component: Loadable({
+            loader: () => import(/* webpackChunkName: 'laporan-promethee' */ './laporan-promethee'),
+            loading: () => null,
+            modules: ['laporan-promethee'],
         }),
     },
 ]

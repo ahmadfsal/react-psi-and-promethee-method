@@ -43,6 +43,12 @@ const Master = () => {
     const [formStatusRumah, setFormStatusRumah] = useState(defaultStatusRumah)
     const [formPenghasilan, setFormPenghasilan] = useState(defaultPenghasilan)
 
+    const [dataPekerjaan, setDataPekerjaan] = useState([])
+    const [dataPenghasilan, setDataPenghasilan] = useState([])
+    const [dataPreferensi, setDataPreferensi] = useState([])
+    const [dataStatusRumah, setDataStatusRumah] = useState([])
+    const [dataStatusSiswa, setDataStatusSiswa] = useState([])
+
     const closeModal = () => {
         setModalAttr((prevValue) => ({
             ...prevValue,
@@ -141,15 +147,18 @@ const Master = () => {
     }
 
     const httpSaveData = (url) => {
-        // axios.post(`${API_URL}/${url}`, JSON.stringify(bodyToSave))
-        //     .then(res => {
-        //         if (res) {
-        //             alert('Sukses tambah data')
-        //             resetFormAfterSave()
-        //             fetchInitialMasterData()
-        //         }
-        //     })
-        //     .catch(err => console.log(err))
+        const body = getBodyToSave()
+
+        axios
+            .post(`${API_URL}/${url}`, JSON.stringify(body))
+            .then((res) => {
+                if (res) {
+                    alert('Sukses tambah data')
+                    resetFormAfterSave()
+                    fetchInitialMasterData()
+                }
+            })
+            .catch((err) => console.log(err))
     }
 
     const resetFormAfterSave = () => {
@@ -231,62 +240,72 @@ const Master = () => {
         }
     }
 
-    // const httpGet = (url) => {
-    //     axios
-    //         .get(`${API_URL}/${url}`).then((res) => {
-    //             if (res) return then
-    //         }).catch((err) => {
-    //             if (err) console.log(err)
-    //             return null
-    //         })
-    // }
+    const fetchDataPekerjaan = () => {
+        axios
+            .get(`${API_URL}/pekerjaan`)
+            .then((res) => {
+                if (res.data) {
+                    setDataPekerjaan(res.data)
+                }
+            })
+            .catch((err) => console.log(err))
+    }
 
-    // const fetchDataPekerjaan = () => {
-    //     const result = httpGet('pekerjaan')
-    //     if (result) {
-    //         // Do here
-    //     }
-    // }
+    const fetchDataPenghasilan = () => {
+        axios
+            .get(`${API_URL}/penghasilan`)
+            .then((res) => {
+                if (res.data) {
+                    setDataPenghasilan(res.data)
+                }
+            })
+            .catch((err) => console.log(err))
+    }
 
-    // const fetchDataPenghasilan = () => {
-    //     const result = httpGet('penghasilan')
-    //     if (result) {
-    //         // Do here
-    //     }
-    // }
+    const fetchDataPreferensi = () => {
+        axios
+            .get(`${API_URL}/preferensi`)
+            .then((res) => {
+                if (res.data) {
+                    setDataPreferensi(res.data)
+                }
+            })
+            .catch((err) => console.log(err))
+    }
 
-    // const fetchDataPreferensi = () => {
-    //     const result = httpGet('preferensi')
-    //     if (result) {
-    //         // Do here
-    //     }
-    // }
+    const fetchDataStatusRumah = () => {
+        axios
+            .get(`${API_URL}/status-rumah`)
+            .then((res) => {
+                if (res.data) {
+                    setDataStatusRumah(res.data)
+                }
+            })
+            .catch((err) => console.log(err))
+    }
 
-    // const fetchDataStatusRumah = () => {
-    //     const result = httpGet('status-rumah')
-    //     if (result) {
-    //         // Do here
-    //     }
-    // }
+    const fetchDataStatusSiswa = () => {
+        axios
+            .get(`${API_URL}/status-siswa`)
+            .then((res) => {
+                if (res.data) {
+                    setDataStatusSiswa(res.data)
+                }
+            })
+            .catch((err) => console.log(err))
+    }
 
-    // const fetchDataStatusSiswa = () => {
-    //     const result = httpGet('status-siswa')
-    //     if (result) {
-    //         // Do here
-    //     }
-    // }
+    const fetchInitialMasterData = () => {
+        fetchDataPekerjaan()
+        fetchDataPenghasilan()
+        fetchDataPreferensi()
+        fetchDataStatusRumah()
+        fetchDataStatusSiswa()
+    }
 
-    // const fetchInitialMasterData = () => {
-    //     fetchDataPekerjaan()
-    //     fetchDataPenghasilan()
-    //     fetchDataPreferensi()
-    //     fetchDataStatusRumah()
-    //     fetchDataStatusSiswa()
-    // }
-
-    // useEffect(() => {
-    //     fetchInitialMasterData()
-    // }, [])
+    useEffect(() => {
+        fetchInitialMasterData()
+    }, [])
 
     return (
         <Fragment>
@@ -298,25 +317,37 @@ const Master = () => {
 
             <Columns>
                 <Column>
-                    <TableStatusSiswa handleClickIcon={handleClickIcon} />
+                    <TableStatusSiswa
+                        dataStatusSiswa={dataStatusSiswa}
+                        handleClickIcon={handleClickIcon}
+                    />
                 </Column>
                 <Column>
-                    <TablePreferensi handleClickIcon={handleClickIcon} />
-                </Column>
-            </Columns>
-
-            <Columns>
-                <Column>
-                    <TableStatusRumah handleClickIcon={handleClickIcon} />
-                </Column>
-                <Column>
-                    <TablePekerjaan handleClickIcon={handleClickIcon} />
+                    <TablePreferensi
+                        dataPreferensi={dataPreferensi}
+                        handleClickIcon={handleClickIcon}
+                    />
                 </Column>
             </Columns>
 
             <Columns>
                 <Column>
-                    <TablePenghasilan handleClickIcon={handleClickIcon} />
+                    <TableStatusRumah
+                        dataStatusRumah={dataStatusRumah}
+                        handleClickIcon={handleClickIcon}
+                    />
+                </Column>
+                <Column>
+                    <TablePenghasilan
+                        dataPenghasilan={dataPenghasilan}
+                        handleClickIcon={handleClickIcon}
+                    />
+                </Column>
+                <Column>
+                    <TablePekerjaan
+                        dataPekerjaan={dataPekerjaan}
+                        handleClickIcon={handleClickIcon}
+                    />
                 </Column>
             </Columns>
 
