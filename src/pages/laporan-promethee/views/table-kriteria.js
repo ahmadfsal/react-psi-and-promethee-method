@@ -34,10 +34,10 @@ const TableKriteria = ({ data }) => {
                                         {cekBobotPenghasilan(item.penghasilan)}
                                     </td>
                                     <td>
-                                        {cekBobotStatusRumah(item.status_rumah)}
+                                        {cekBobotStatusSiswa(item.status_siswa)}
                                     </td>
                                     <td>
-                                        {cekBobotStatusSiswa(item.status_siswa)}
+                                        {cekBobotStatusRumah(item.status_rumah)}
                                     </td>
                                 </tr>
                             )

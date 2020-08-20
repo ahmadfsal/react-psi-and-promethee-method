@@ -42,6 +42,7 @@ const Pengajuan = () => {
                     alert('Berhasil buat pengajuan')
                     handleModalPengajuan()
                     fetchInitialMasterData()
+                    setFormData(defaultFormData)
                 }
             })
             .catch((err) => console.log(err))

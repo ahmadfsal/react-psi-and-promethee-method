@@ -6,6 +6,8 @@ import axios from 'axios'
 
 import TableAlternatif from './views/table-alternatif'
 import TableKriteria from './views/table-kriteria'
+import TableNilaiAlternatif from './views/table-nilai-alternatif'
+import TablePrometheeRanking from './views/table-promethee-ranking'
 
 const LaporanPromethee = () => {
     const [dataAlternatif, setDataAlternatif] = useState([])
@@ -30,8 +32,16 @@ const LaporanPromethee = () => {
                 <TableAlternatif data={dataAlternatif} />
             </Accordion>
 
-            <Accordion className="mt-5">
+            <Accordion title='Nilai Preferensi' className="mt-5">
                 <TableKriteria data={dataAlternatif} />
+            </Accordion>
+
+            <Accordion title='Hitung Nilai Preferensi' className='mt-5'>
+                <TableNilaiAlternatif data={dataAlternatif} />
+            </Accordion>
+
+            <Accordion title='Promethee Ranking' className='mt-5'>
+                <TablePrometheeRanking data={dataAlternatif} />
             </Accordion>
         </Fragment>
     )

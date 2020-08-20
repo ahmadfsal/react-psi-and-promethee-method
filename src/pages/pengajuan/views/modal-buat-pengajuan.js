@@ -57,18 +57,6 @@ const ModalBuatPengajuan = ({
                 <Columns>
                     <Column>
                         <Dropdown
-                            label='Status Rumah'
-                            placeholder='Pilih status rumah'
-                            name='status_rumah'
-                            objectValue={dataStatusRumah}
-                            value={formData.status_rumah}
-                            onChange={(e) => handleChangeInputForm(e)}
-                        />
-                    </Column>
-                </Columns>
-                <Columns>
-                    <Column>
-                        <Dropdown
                             label='Status Siswa'
                             placeholder='Pilih status siswa'
                             name='status_siswa'
@@ -78,10 +66,24 @@ const ModalBuatPengajuan = ({
                         />
                     </Column>
                 </Columns>
+                <Columns>
+                    <Column>
+                        <Dropdown
+                            label='Status Rumah'
+                            placeholder='Pilih status rumah'
+                            name='status_rumah'
+                            objectValue={dataStatusRumah}
+                            value={formData.status_rumah}
+                            onChange={(e) => handleChangeInputForm(e)}
+                        />
+                    </Column>
+                </Columns>
 
                 <Columns>
                     <Column>
-                        <Button className='is-primary' type='submit'>Buat</Button>
+                        <Button className='is-primary' type='submit'>
+                            Buat
+                        </Button>
                     </Column>
                 </Columns>
             </form>
