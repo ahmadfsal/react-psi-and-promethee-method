@@ -33,8 +33,15 @@ const LaporanPsi = () => {
     return (
         <Fragment>
             <Helmet title='Laporan Metode PSI | SPK' />
-            <div className='mb-5 has-text-weight-medium is-size-5 has-text-black'>
-                Metode PSI
+            <div className='level'>
+                <div className='level-left mb-5 has-text-weight-medium is-size-5 has-text-black'>
+                    Metode PSI
+                </div>
+                <div className='level-right'>
+                    <button className='button' onClick={() => window.print()}>
+                        Print
+                    </button>
+                </div>
             </div>
 
             <Accordion title='Data Alternatif'>

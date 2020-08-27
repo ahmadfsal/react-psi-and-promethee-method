@@ -37,6 +37,29 @@ const TablePrometheeRanking = ({ data }) => {
         return arrIndeksPreferensi.reduce((r, a) => a.map((b, i) => (r[i] || 0) + b), [])
     }
 
+    const getRanking = () => {
+        const getNilaiRanking = data?.map((item, index) => {
+            const indeksLevelingFlow = getLevelingFlow()[index]
+            const indeksEnteringFlow = getEnteringFlow()[index]
+
+            const nilaiLevelingFlow = 1/4 * indeksLevelingFlow
+            const nilaiEnteringFlow = 1/4 * indeksEnteringFlow
+            const nilaiRanking = nilaiLevelingFlow - nilaiEnteringFlow
+
+            item.leveling_flow = indeksLevelingFlow
+            item.nilai_leveling_flow = nilaiLevelingFlow
+            item.entering_flow = indeksEnteringFlow
+            item.nilai_entering_flow = nilaiEnteringFlow
+            item.nilai_ranking = nilaiRanking
+
+            return item
+        })
+
+        const sortRanking = getNilaiRanking.sort((a, b) => b.nilai_ranking - a.nilai_ranking)
+
+        return sortRanking
+    }
+
     return (
         <Box>
             <Table>
@@ -52,29 +75,16 @@ const TablePrometheeRanking = ({ data }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((item, index) => {
-                        const indeksLevelingFlow = getLevelingFlow()[index]
-                        const indeksEnteringFlow = getEnteringFlow()[index]
-
-                        const levelingFlow = indeksLevelingFlow
-                        const nilaiLevelingFlow = 1/4 * indeksLevelingFlow
-
-                        const enteringFlow = indeksEnteringFlow
-                        const nilaiEnteringFlow = 1/4 * indeksEnteringFlow
-                        
-                        const nilaiRanking = nilaiLevelingFlow - nilaiEnteringFlow
-
-                        const ranking = Object.values({nilaiRanking}).sort((a, b) => a - b)
-
+                    {getRanking().map((item, index) => {
                         return (
                             <tr key={index}>
                                 <td>{item.alternatif}</td>
-                                <td>{levelingFlow}</td>
-                                <td>{nilaiLevelingFlow}</td>
-                                <td>{enteringFlow}</td>
-                                <td>{nilaiEnteringFlow}</td>
-                                <td>{nilaiRanking}</td>
-                        <td>{ranking}</td>
+                                <td>{item.leveling_flow}</td>
+                                <td>{item.nilai_leveling_flow}</td>
+                                <td>{item.entering_flow}</td>
+                                <td>{item.nilai_entering_flow}</td>
+                                <td>{item.nilai_ranking}</td>
+                                <td>{index+1}</td>
                             </tr>
                         )
                     })}

@@ -152,6 +152,18 @@ const TableHasilAkhir = ({ dataAlternatif }) => {
         return jumlahArr
     }
 
+    const getHasilAkhir = () => {
+        const dataArr = dataAlternatif.map((item, index) => {
+            item.nilai = hasilAkhir(item)
+
+            return item
+        })
+
+        const sortNilai = dataArr.sort((a, b) => b.nilai - a.nilai)
+
+        return sortNilai
+    }
+
     return (
     	<Box>
     		<Table>
@@ -163,11 +175,11 @@ const TableHasilAkhir = ({ dataAlternatif }) => {
     				</tr>
     			</thead>
                 <tbody>
-                    {dataAlternatif.map((item, index) => (
+                    {getHasilAkhir().map((item, index) => (
                         <tr key={index}>
                             <td>{item.alternatif}</td>
-                            <td>{hasilAkhir(item)}</td>
-                            <td></td>
+                            <td>{item.nilai}</td>
+                            <td>{index+1}</td>
                         </tr>
                     ))}
                 </tbody>
