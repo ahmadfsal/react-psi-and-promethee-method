@@ -1,9 +1,11 @@
-import React, { memo, Fragment, useEffect, useState } from 'react'
+import React, { memo, Fragment, useEffect, useState, useRef } from 'react'
 import { Helmet } from 'react-helmet'
-import { Accordion } from 'libs'
+import { Accordion, Button } from 'libs'
 import { API_URL } from 'constant'
 import axios from 'axios'
+import ReactToPrint from 'react-to-print'
 
+import PrintPage from './views/print'
 import TableAlternatif from './views/table-alternatif'
 import TableKriteria from './views/table-kriteria'
 import TableNilaiAlternatif from './views/table-nilai-alternatif'
@@ -11,6 +13,7 @@ import TablePrometheeRanking from './views/table-promethee-ranking'
 
 const LaporanPromethee = () => {
     const [dataAlternatif, setDataAlternatif] = useState([])
+    const printPage = useRef()
 
     useEffect(() => {
         axios
@@ -24,8 +27,20 @@ const LaporanPromethee = () => {
     return (
         <Fragment>
             <Helmet title='Laporan Metode Promethee | SPK' />
-            <div className='mb-5 has-text-weight-medium is-size-5 has-text-black'>
-                Metode Promethee
+            <div className='level mb-5 '>
+                <div className='level-left has-text-weight-medium is-size-5 has-text-black'>
+                    Metode Promethee
+                </div>
+                <div className='level-right'>
+                    <ReactToPrint
+                        content={() => printPage.current}
+                        trigger={() => <Button className='is-link'>Print</Button>}
+                    />  
+                </div>
+            </div>
+
+            <div style={{ display: 'none' }}>
+                <PrintPage ref={printPage} data={dataAlternatif} />
             </div>
 
             <Accordion title='Data Alternatif'>

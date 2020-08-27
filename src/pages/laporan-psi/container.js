@@ -1,9 +1,11 @@
-import React, { memo, Fragment, useState, useEffect } from 'react'
+import React, { memo, Fragment, useState, useEffect, useRef } from 'react'
 import { Helmet } from 'react-helmet'
 import { API_URL } from 'constant'
-import { Accordion } from 'libs'
+import { Accordion, Button } from 'libs'
 import axios from 'axios'
+import ReactToPrint from 'react-to-print'
 
+import Print from './views/print'
 import TableDataAlternatif from './views/table-data-alternatif' // Step 1
 import TableMatrixKeputusan from './views/table-matrix-keputusan' // Step 2
 import TableMatrix from './views/table-matrix' // Step 3
@@ -16,6 +18,7 @@ import TableHasilAkhir from './views/table-hasil-akhir' // Step 9
 
 const LaporanPsi = () => {
     const [dataAlternatif, setDataAlternatif] = useState([])
+    const printRef = useRef()
 
     const fetchDataPengajuan = () => {
         axios
@@ -33,15 +36,20 @@ const LaporanPsi = () => {
     return (
         <Fragment>
             <Helmet title='Laporan Metode PSI | SPK' />
-            <div className='level'>
-                <div className='level-left mb-5 has-text-weight-medium is-size-5 has-text-black'>
+            <div className='level mb-5 '>
+                <div className='level-left has-text-weight-medium is-size-5 has-text-black'>
                     Metode PSI
                 </div>
                 <div className='level-right'>
-                    <button className='button' onClick={() => window.print()}>
-                        Print
-                    </button>
+                    <ReactToPrint
+                        content={() => printRef.current}
+                        trigger={() => <Button className='is-link'>Print</Button>}
+                    />  
                 </div>
+            </div>
+
+            <div style={{ display: 'none' }}>
+                <Print ref={printRef} dataAlternatif={dataAlternatif} />
             </div>
 
             <Accordion title='Data Alternatif'>
