@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo } from 'react'
 import { Box, Table } from 'libs'
 import {
     cekBobotPekerjaan,
@@ -8,7 +8,6 @@ import {
 } from 'shared/utils'
 
 const TableHasilAkhir = ({ dataAlternatif }) => {
-    const [hasilAkhirList, setHasilAkhirList] = useState([])
     const totalBobotPekerjaan = () => {
         const totalList = dataAlternatif.map(
             (item) => parseInt(cekBobotPekerjaan(item.pekerjaan)) / 4

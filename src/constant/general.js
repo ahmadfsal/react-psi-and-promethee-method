@@ -7,6 +7,10 @@ export const listMenuLaporan = [
     {
         path: '/laporan/promethee',
         title: 'Metode Promethee'
+    },
+    {
+        path: '/laporan/hasil-banding',
+        title: 'Hasil Perbandingan'
     }
 ]
 

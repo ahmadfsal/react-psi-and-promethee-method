@@ -53,6 +53,17 @@ const routes = [
             modules: ['laporan-promethee'],
         }),
     },
+
+    {
+        path: '/laporan/hasil-banding',
+        title: 'Hasil Perbandingan',
+        exact: true,
+        component: Loadable({
+            loader: () => import(/* webpackChunkName: 'laporan-hasil-banding' */ './laporan-hasil-banding'),
+            loading: () => null,
+            modules: ['laporan-hasil-banding'],
+        }),
+    },
 ]
 
 const MainRoutes = () => <RouteWithSubRoutes routes={routes} />
