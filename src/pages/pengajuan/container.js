@@ -3,6 +3,7 @@ import { Button } from 'libs'
 import { Helmet } from 'react-helmet'
 import { API_URL } from 'constant'
 import axios from 'axios'
+import './style.scss'
 
 import ModalBuatPengajuan from './views/modal-buat-pengajuan'
 import TablePengajuan from './views/table'
@@ -22,6 +23,8 @@ const Pengajuan = () => {
     const [dataStatusRumah, setDataStatusRumah] = useState([])
     const [dataStatusSiswa, setDataStatusSiswa] = useState([])
     const [showModalPengajuan, setShowModalPengajuan] = useState(false)
+    const [modalType, setModalType] = useState('BUAT')
+    const [idPengajuan, setIdPengajuan] = useState(null)
 
     const handleChangeInputForm = (e) => {
         const { name, value } = e.target
@@ -32,20 +35,84 @@ const Pengajuan = () => {
         }))
     }
 
-    const handleBuatPengajuan = (e) => {
-        e.preventDefault()
-
+    const handleBuatPengajuan = () => {
         axios
             .post(`${API_URL}/pengajuan`, formData)
             .then((res) => {
                 if (res) {
-                    alert('Berhasil buat pengajuan')
+                    alert('Berhasil update pengajuan')
                     handleModalPengajuan()
                     fetchInitialMasterData()
                     setFormData(defaultFormData)
                 }
             })
             .catch((err) => console.log(err))
+    }
+
+    const handleEditPengajuan = () => {
+        if (idPengajuan) {
+            axios
+                .put(`${API_URL}/pengajuan/${idPengajuan}`, formData)
+                .then((res) => {
+                    if (res) {
+                        alert('Berhasil buat pengajuan')
+                        handleModalPengajuan()
+                        fetchInitialMasterData()
+                        setFormData(defaultFormData)
+                    }
+                })
+                .catch((err) => console.log(err))
+        }
+    }
+
+    const handleEditItem = (id) => {
+        setModalType('EDIT')
+        handleModalPengajuan()
+
+        axios
+            .get(`${API_URL}/pengajuan/${id}`)
+            .then((res) => {
+                const { data } = res
+                if (data) {
+                    setIdPengajuan(data.id)
+                    setFormData((prevValue) => ({
+                        ...prevValue,
+                        alternatif: data.alternatif,
+                        pekerjaan: data.pekerjaan,
+                        penghasilan: data.penghasilan,
+                        status_rumah: data.status_rumah,
+                        status_siswa: data.status_siswa
+                    }))
+                }
+            })
+            .catch((err) => console.log(err))
+    }
+
+    const handleDeletePengajuan = () => {
+        if (idPengajuan) {
+            axios
+                .delete(`${API_URL}/pengajuan/${idPengajuan}`)
+                .then((res) => {
+                    const { status } = res
+                    if (status === 200) {
+                        alert('Berhasil hapus data')
+                        setIdPengajuan(null)
+                        setFormData(defaultFormData)
+                        setShowModalPengajuan(false)
+                        fetchInitialMasterData()
+                    }
+                })  
+                .catch((err) => console.log(err))
+        }
+    }
+
+    const handleModalPengajuan = () => {
+        if (modalType === 'BUAT') {
+            setShowModalPengajuan(!showModalPengajuan)
+        } else {
+            setShowModalPengajuan(!showModalPengajuan)
+            setFormData(defaultFormData)
+        }
     }
 
     const fetchDataPengajuan = () => {
@@ -56,9 +123,6 @@ const Pengajuan = () => {
             })
             .catch((err) => console.log(err))
     }
-
-    const handleModalPengajuan = () =>
-        setShowModalPengajuan(!showModalPengajuan)
 
     const fetchDataPekerjaan = () => {
         axios
@@ -158,7 +222,10 @@ const Pengajuan = () => {
                 <div className='level-right'>
                     <Button
                         className='is-primary'
-                        onClick={handleModalPengajuan}
+                        onClick={() => {
+                            setModalType('BUAT')
+                            handleModalPengajuan()
+                        }}
                     >
                         Buat Pengajuan Baru
                     </Button>
@@ -173,11 +240,17 @@ const Pengajuan = () => {
                 formData={formData}
                 handleBuatPengajuan={handleBuatPengajuan}
                 handleChangeInputForm={handleChangeInputForm}
+                handleDeletePengajuan={handleDeletePengajuan}
+                handleEditPengajuan={handleEditPengajuan}
                 handleModalPengajuan={handleModalPengajuan}
                 isShow={showModalPengajuan}
+                modalType={modalType}
             />
 
-            <TablePengajuan dataPengajuan={dataPengajuan} />
+            <TablePengajuan
+                dataPengajuan={dataPengajuan}
+                handleEditItem={handleEditItem}
+            />
         </Fragment>
     )
 }

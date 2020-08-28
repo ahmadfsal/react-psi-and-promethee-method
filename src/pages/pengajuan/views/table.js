@@ -1,7 +1,7 @@
 import React, { memo, Fragment } from 'react'
 import { Table } from 'libs'
 
-const TablePengajuan = ({ dataPengajuan }) => {
+const TablePengajuan = ({ dataPengajuan, handleEditItem }) => {
     return (
         <Fragment>
             {dataPengajuan.length >= 1 ? (
@@ -19,7 +19,12 @@ const TablePengajuan = ({ dataPengajuan }) => {
                         {dataPengajuan?.map((item, index) => {
                             return (
                                 <tr key={index}>
-                                    <td>{item.alternatif}</td>
+                                    <td
+                                        className='clickable'
+                                        onClick={() => handleEditItem(item.id)}
+                                    >
+                                        {item.alternatif}
+                                    </td>
                                     <td>{item.pekerjaan}</td>
                                     <td>{item.penghasilan}</td>
                                     <td>{item.status_rumah}</td>
