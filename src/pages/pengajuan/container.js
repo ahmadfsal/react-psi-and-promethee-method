@@ -6,6 +6,7 @@ import axios from 'axios'
 import './style.scss'
 
 import ModalBuatPengajuan from './views/modal-buat-pengajuan'
+import ModalDeletePengajuan from './views/modal-delete-pengajuan'
 import TablePengajuan from './views/table'
 
 const Pengajuan = () => {
@@ -16,6 +17,10 @@ const Pengajuan = () => {
         status_rumah: '',
         status_siswa: ''
     }
+    const defaultModalDeletePengajuan = {
+        isShow: false,
+        itemId: null
+    }
     const [dataPekerjaan, setDataPekerjaan] = useState([])
     const [dataPengajuan, setDataPengajuan] = useState([])
     const [formData, setFormData] = useState(defaultFormData)
@@ -25,6 +30,7 @@ const Pengajuan = () => {
     const [showModalPengajuan, setShowModalPengajuan] = useState(false)
     const [modalType, setModalType] = useState('BUAT')
     const [idPengajuan, setIdPengajuan] = useState(null)
+    const [modalDeletePengajuan, setModalDeletePengajuan] = useState(defaultModalDeletePengajuan)
 
     const handleChangeInputForm = (e) => {
         const { name, value } = e.target
@@ -40,7 +46,7 @@ const Pengajuan = () => {
             .post(`${API_URL}/pengajuan`, formData)
             .then((res) => {
                 if (res) {
-                    alert('Berhasil update pengajuan')
+                    alert('Berhasil buat pengajuan baru')
                     handleModalPengajuan()
                     fetchInitialMasterData()
                     setFormData(defaultFormData)
@@ -55,7 +61,7 @@ const Pengajuan = () => {
                 .put(`${API_URL}/pengajuan/${idPengajuan}`, formData)
                 .then((res) => {
                     if (res) {
-                        alert('Berhasil buat pengajuan')
+                        alert('Berhasil edit pengajuan')
                         handleModalPengajuan()
                         fetchInitialMasterData()
                         setFormData(defaultFormData)
@@ -88,22 +94,21 @@ const Pengajuan = () => {
             .catch((err) => console.log(err))
     }
 
-    const handleDeletePengajuan = () => {
-        if (idPengajuan) {
-            axios
-                .delete(`${API_URL}/pengajuan/${idPengajuan}`)
-                .then((res) => {
-                    const { status } = res
-                    if (status === 200) {
-                        alert('Berhasil hapus data')
-                        setIdPengajuan(null)
-                        setFormData(defaultFormData)
-                        setShowModalPengajuan(false)
-                        fetchInitialMasterData()
-                    }
-                })  
-                .catch((err) => console.log(err))
-        }
+    const handleDeletePengajuan = (id) => {
+        axios
+            .delete(`${API_URL}/pengajuan/${id}`)
+            .then((res) => {
+                const { status } = res
+                if (status === 200) {
+                    alert('Berhasil hapus data')
+                    setIdPengajuan(null)
+                    setModalDeletePengajuan(defaultModalDeletePengajuan)
+                    setFormData(defaultFormData)
+                    setShowModalPengajuan(false)
+                    fetchInitialMasterData()
+                }
+            })  
+            .catch((err) => console.log(err))
     }
 
     const handleModalPengajuan = () => {
@@ -113,6 +118,14 @@ const Pengajuan = () => {
             setShowModalPengajuan(!showModalPengajuan)
             setFormData(defaultFormData)
         }
+    }
+
+    const handleModalDeletePengajuan = (itemId) => {
+        setModalDeletePengajuan(prevValue => ({
+            ...prevValue,
+            isShow: !prevValue.isShow,
+            itemId
+        }))
     }
 
     const fetchDataPengajuan = () => {
@@ -240,15 +253,21 @@ const Pengajuan = () => {
                 formData={formData}
                 handleBuatPengajuan={handleBuatPengajuan}
                 handleChangeInputForm={handleChangeInputForm}
-                handleDeletePengajuan={handleDeletePengajuan}
                 handleEditPengajuan={handleEditPengajuan}
                 handleModalPengajuan={handleModalPengajuan}
                 isShow={showModalPengajuan}
                 modalType={modalType}
             />
 
+            <ModalDeletePengajuan
+                modalAttr={modalDeletePengajuan}
+                handleModalDeletePengajuan={handleModalDeletePengajuan}
+                handleDeletePengajuan={handleDeletePengajuan}
+            />
+
             <TablePengajuan
                 dataPengajuan={dataPengajuan}
+                handleModalDeletePengajuan={handleModalDeletePengajuan}
                 handleEditItem={handleEditItem}
             />
         </Fragment>
