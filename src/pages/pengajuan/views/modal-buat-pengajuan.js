@@ -9,7 +9,6 @@ const ModalBuatPengajuan = ({
     formData,
     handleBuatPengajuan,
     handleChangeInputForm,
-    handleDeletePengajuan,
     handleEditPengajuan,
     handleModalPengajuan,
     isShow,
@@ -99,17 +98,6 @@ const ModalBuatPengajuan = ({
                         {modalType === 'BUAT' ? 'Buat' : 'Simpan'}
                     </Button>
                 </Column>
-                {modalType === 'EDIT' && (
-                    <Column className='is-one-quarter'>
-                        <Button
-                            className='is-danger is-light is-fullwidth'
-                            type='button'
-                            onClick={handleDeletePengajuan}
-                        >
-                            Hapus
-                        </Button>
-                    </Column>
-                )}
             </Columns>
         </Modal>
     )

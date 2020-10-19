@@ -1,7 +1,11 @@
 import React, { memo, Fragment } from 'react'
-import { Table } from 'libs'
+import { Button, Table } from 'libs'
 
-const TablePengajuan = ({ dataPengajuan, handleEditItem }) => {
+const TablePengajuan = ({
+    dataPengajuan,
+    handleEditItem,
+    handleModalDeletePengajuan,
+}) => {
     return (
         <Fragment>
             {dataPengajuan.length >= 1 ? (
@@ -13,22 +17,32 @@ const TablePengajuan = ({ dataPengajuan, handleEditItem }) => {
                             <th>Penghasilan</th>
                             <th>Status Rumah</th>
                             <th>Status Siswa</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         {dataPengajuan?.map((item, index) => {
                             return (
                                 <tr key={index}>
-                                    <td
-                                        className='clickable'
-                                        onClick={() => handleEditItem(item.id)}
-                                    >
-                                        {item.alternatif}
-                                    </td>
+                                    <td>{item.alternatif}</td>
                                     <td>{item.pekerjaan}</td>
                                     <td>{item.penghasilan}</td>
                                     <td>{item.status_rumah}</td>
                                     <td>{item.status_siswa}</td>
+                                    <td>
+                                        <Button
+                                            className='is-info mr-2'
+                                            onClick={() => handleEditItem(item.id)}
+                                        >
+                                            Edit
+                                        </Button>
+                                        <Button
+                                            className='is-danger'
+                                            onClick={() => handleModalDeletePengajuan(item.id)}
+                                        >
+                                            Hapus
+                                        </Button>
+                                    </td>
                                 </tr>
                             )
                         })}
