@@ -12,7 +12,7 @@ const ModalBuatPengajuan = ({
     handleEditPengajuan,
     handleModalPengajuan,
     isShow,
-    modalType
+    modalType,
 }) => {
     const handlerSimpan = () => {
         if (modalType === 'BUAT') {
@@ -31,10 +31,32 @@ const ModalBuatPengajuan = ({
             <Columns>
                 <Column>
                     <Input
+                        label='NISN'
+                        placeholder='Masukkan NISN'
+                        name='nisn'
+                        value={formData.nisn}
+                        onChange={(e) => handleChangeInputForm(e)}
+                    />
+                </Column>
+            </Columns>
+            <Columns>
+                <Column>
+                    <Input
                         label='Alternatif'
                         placeholder='Masukkan nama alternatif'
                         name='alternatif'
                         value={formData.alternatif}
+                        onChange={(e) => handleChangeInputForm(e)}
+                    />
+                </Column>
+            </Columns>
+            <Columns>
+                <Column>
+                    <Input
+                        label='Kelas'
+                        placeholder='Masukkan kelas'
+                        name='kelas'
+                        value={formData.kelas}
                         onChange={(e) => handleChangeInputForm(e)}
                     />
                 </Column>

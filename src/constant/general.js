@@ -11,6 +11,10 @@ export const listMenuLaporan = [
     {
         path: '/laporan/hasil-banding',
         title: 'Hasil Perbandingan'
+    },
+    {
+        path: '/laporan/report',
+        title: 'Report'
     }
 ]
 

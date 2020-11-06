@@ -21,7 +21,7 @@ const Modal = ({ isShow = false, children, onClose, title }) => {
                 <div className='modal-background'></div>
                 <div className='modal-content'>
                     <Box>
-                        <div className='is-size-5 has-text-weight-medium'>
+                        <div className='is-size-5 has-text-weight-bold mb-5'>
                             {title}
                         </div>
                         {children}

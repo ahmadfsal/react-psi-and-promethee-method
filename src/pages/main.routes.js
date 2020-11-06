@@ -53,7 +53,6 @@ const routes = [
             modules: ['laporan-promethee'],
         }),
     },
-
     {
         path: '/laporan/hasil-banding',
         title: 'Hasil Perbandingan',
@@ -62,6 +61,16 @@ const routes = [
             loader: () => import(/* webpackChunkName: 'laporan-hasil-banding' */ './laporan-hasil-banding'),
             loading: () => null,
             modules: ['laporan-hasil-banding'],
+        }),
+    },
+    {
+        path: '/laporan/report',
+        title: 'Report',
+        exact: true,
+        component: Loadable({
+            loader: () => import(/* webpackChunkName: 'report' */ './report'),
+            loading: () => null,
+            modules: ['report'],
         }),
     },
 ]
