@@ -65,7 +65,9 @@ const TablePrometheeRanking = ({ data }) => {
             <Table>
                 <thead>
                     <tr>
+                        <td>NISN</td>
                         <td>Alternatif</td>
+                        <td>Kelas</td>
                         <td>Leveling Flow</td>
                         <td>Nilai Leveling Flow</td>
                         <td>Entering Flow</td>
@@ -78,7 +80,9 @@ const TablePrometheeRanking = ({ data }) => {
                     {getRanking().map((item, index) => {
                         return (
                             <tr key={index}>
+                                <td>{item.nisn}</td>
                                 <td>{item.alternatif}</td>
+                                <td>{item.kelas}</td>
                                 <td>{item.leveling_flow}</td>
                                 <td>{item.nilai_leveling_flow}</td>
                                 <td>{item.entering_flow}</td>

@@ -12,7 +12,10 @@ const TablePengajuan = ({
                 <Table>
                     <thead>
                         <tr>
+                            <td>No</td>
+                            <th>NISN</th>
                             <th>Alternatif</th>
+                            <th>Kelas</th>
                             <th>Pekerjaan</th>
                             <th>Penghasilan</th>
                             <th>Status Rumah</th>
@@ -24,20 +27,23 @@ const TablePengajuan = ({
                         {dataPengajuan?.map((item, index) => {
                             return (
                                 <tr key={index}>
-                                    <td>{item.alternatif}</td>
-                                    <td>{item.pekerjaan}</td>
-                                    <td>{item.penghasilan}</td>
-                                    <td>{item.status_rumah}</td>
-                                    <td>{item.status_siswa}</td>
+                                    <td>{index + 1}</td>
+                                    <td>{item.nisn ?? '-'}</td>
+                                    <td>{item.alternatif ?? '-'}</td>
+                                    <td>{item.kelas ?? '-'}</td>
+                                    <td>{item.pekerjaan ?? '-'}</td>
+                                    <td>{item.penghasilan ?? '-'}</td>
+                                    <td>{item.status_rumah ?? '-'}</td>
+                                    <td>{item.status_siswa ?? '-'}</td>
                                     <td>
                                         <Button
-                                            className='is-info mr-2'
+                                            className='is-info is-light mr-1'
                                             onClick={() => handleEditItem(item.id)}
                                         >
                                             Edit
                                         </Button>
                                         <Button
-                                            className='is-danger'
+                                            className='is-danger is-light'
                                             onClick={() => handleModalDeletePengajuan(item.id)}
                                         >
                                             Hapus

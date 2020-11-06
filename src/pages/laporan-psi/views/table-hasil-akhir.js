@@ -168,7 +168,9 @@ const TableHasilAkhir = ({ dataAlternatif }) => {
     		<Table>
     			<thead>
     				<tr>
+                        <td>NISN</td>
     					<td>Alternatif</td>
+                        <td>Kelas</td>
     					<td>Nilai</td>
     					<td>Ranking</td>
     				</tr>
@@ -176,7 +178,9 @@ const TableHasilAkhir = ({ dataAlternatif }) => {
                 <tbody>
                     {getHasilAkhir().map((item, index) => (
                         <tr key={index}>
+                            <td>{item.nisn}</td>
                             <td>{item.alternatif}</td>
+                            <td>{item.kelas}</td>
                             <td>{item.nilai}</td>
                             <td>{index+1}</td>
                         </tr>

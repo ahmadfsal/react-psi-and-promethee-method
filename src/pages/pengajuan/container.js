@@ -1,17 +1,21 @@
-import React, { memo, useState, useEffect, Fragment } from 'react'
-import { Button } from 'libs'
+import React, { memo, useState, useEffect, useRef, Fragment } from 'react'
+import { Button, Input } from 'libs'
 import { Helmet } from 'react-helmet'
 import { API_URL } from 'constant'
 import axios from 'axios'
+import ReactToPrint from 'react-to-print'
 import './style.scss'
 
 import ModalBuatPengajuan from './views/modal-buat-pengajuan'
 import ModalDeletePengajuan from './views/modal-delete-pengajuan'
 import TablePengajuan from './views/table'
+import Print from './views/print'
 
 const Pengajuan = () => {
     const defaultFormData = {
+        nisn: '',
         alternatif: '',
+        kelas: '',
         pekerjaan: '',
         penghasilan: '',
         status_rumah: '',
@@ -21,6 +25,8 @@ const Pengajuan = () => {
         isShow: false,
         itemId: null
     }
+    const printRef = useRef()
+    const [dataToPrint, setDataToPrint] = useState('')
     const [dataPekerjaan, setDataPekerjaan] = useState([])
     const [dataPengajuan, setDataPengajuan] = useState([])
     const [formData, setFormData] = useState(defaultFormData)
@@ -83,7 +89,9 @@ const Pengajuan = () => {
                     setIdPengajuan(data.id)
                     setFormData((prevValue) => ({
                         ...prevValue,
+                        nisn: data.nisn,
                         alternatif: data.alternatif,
+                        kelas: data.kelas,
                         pekerjaan: data.pekerjaan,
                         penghasilan: data.penghasilan,
                         status_rumah: data.status_rumah,
@@ -132,7 +140,10 @@ const Pengajuan = () => {
         axios
             .get(`${API_URL}/pengajuan`)
             .then((res) => {
-                if (res.data) setDataPengajuan(res.data)
+                if (res.data) {
+                    setDataPengajuan(res.data)
+                    setDataToPrint(res?.data?.length)
+                }
             })
             .catch((err) => console.log(err))
     }
@@ -242,7 +253,37 @@ const Pengajuan = () => {
                     >
                         Buat Pengajuan Baru
                     </Button>
+                    <Input
+                        className='mx-3 mt-4'
+                        name='dataToPrint'
+                        placeholder='Input data to print'
+                        type='number'
+                        value={dataToPrint}
+                        onChange={e => setDataToPrint(e.target.value)}
+                        style={{
+                            width: 100
+                        }}
+                    />
+                    <ReactToPrint
+                        content={() => printRef.current}
+                        trigger={() => (
+                            <Button
+                                className='is-info is-disabled'
+                                disabled={dataToPrint === '' || dataToPrint <= 0}
+                            >
+                                Print
+                            </Button>
+                        )}
+                    />
                 </div>
+            </div>
+
+            <div style={{ display: 'none' }}>
+                <Print
+                    ref={printRef}
+                    data={dataPengajuan}
+                    dataToPrint={dataToPrint}
+                />
             </div>
 
             <ModalBuatPengajuan
