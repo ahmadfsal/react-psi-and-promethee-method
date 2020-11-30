@@ -1,7 +1,7 @@
 import React, { memo, Fragment, Component } from 'react'
 import { Box } from 'libs'
 
-import TablePengajuan from './table'
+import TableToPrint from './table-to-print'
 
 class Print extends Component {
     render() {
@@ -13,7 +13,7 @@ class Print extends Component {
             <div ref={ref}>
                 <Fragment>
                     <Box title='Data Pengajuan'>
-                        <TablePengajuan dataPengajuan={dataToBePrint} />
+                        <TableToPrint dataPengajuan={dataToBePrint} />
                     </Box>
                 </Fragment>
             </div>

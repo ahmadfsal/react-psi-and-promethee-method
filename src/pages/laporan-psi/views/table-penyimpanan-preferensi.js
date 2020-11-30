@@ -3,7 +3,7 @@ import { Box, Table } from 'libs'
 import {
     cekBobotPekerjaan,
     cekBobotPenghasilan,
-    cekBobotStatusRumah,
+    cekBobotJenisBantuan,
     cekBobotStatusSiswa
 } from 'shared/utils'
 
@@ -26,9 +26,9 @@ const TablePenyimpananPreferensi = ({ dataAlternatif }) => {
         return totalResult / dataAlternatif.length
     }
 
-    const totalBobotStatusRumah = () => {
+    const totalBobotJenisBantuan = () => {
         const totalList = dataAlternatif.map(
-            (item) => parseInt(cekBobotStatusRumah(item.status_rumah)) / 4
+            (item) => parseInt(cekBobotJenisBantuan(item.jenis_bantuan)) / 4
         )
         const totalResult = totalList.reduce((acc, curr) => acc + curr, 0)
 
@@ -61,13 +61,13 @@ const TablePenyimpananPreferensi = ({ dataAlternatif }) => {
         })
         const jumlahPenghasilan = penghasilan.reduce((acc, curr) => acc + curr, 0)
 
-        const statusRumah = dataAlternatif.map(item => {
+        const jenisBantuan = dataAlternatif.map(item => {
             return Math.pow(
-                cekBobotStatusRumah(item.status_rumah) - totalBobotStatusRumah(),
+                cekBobotJenisBantuan(item.jenis_bantuan) - totalBobotJenisBantuan(),
                 2
             )
         })
-        const jumlahStatusRumah = statusRumah.reduce((acc, curr) => acc + curr, 0)
+        const jumlahJenisBantuan = jenisBantuan.reduce((acc, curr) => acc + curr, 0)
 
         const statusSiswa = dataAlternatif.map(item => {
             return Math.pow(
@@ -80,7 +80,7 @@ const TablePenyimpananPreferensi = ({ dataAlternatif }) => {
         return {
             jumlahPekerjaan,
             jumlahPenghasilan,
-            jumlahStatusRumah,
+            jumlahJenisBantuan,
             jumlahStatusSiswa
         }
     }
@@ -89,14 +89,14 @@ const TablePenyimpananPreferensi = ({ dataAlternatif }) => {
         const {
             jumlahPekerjaan,
             jumlahPenghasilan,
-            jumlahStatusRumah,
+            jumlahJenisBantuan,
             jumlahStatusSiswa
         } = totalVariasiPreferensi()
 
         const kriteria = {
             jumlahPekerjaan,
             jumlahPenghasilan,
-            jumlahStatusRumah,
+            jumlahJenisBantuan,
             jumlahStatusSiswa
         }
 
@@ -117,8 +117,8 @@ const TablePenyimpananPreferensi = ({ dataAlternatif }) => {
                     <tr>
                         <td>Pekerjaan</td>
                         <td>Penghasilan</td>
-                        <td>Status Rumah</td>
                         <td>Status Siswa</td>
+                        <td>Jenis Bantuan</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -126,8 +126,8 @@ const TablePenyimpananPreferensi = ({ dataAlternatif }) => {
                         <td></td>
                         <td>{totalVariasiPreferensi().jumlahPekerjaan.toFixed(2) - 1}</td>
                         <td>{totalVariasiPreferensi().jumlahPenghasilan.toFixed(2) - 1}</td>
-                        <td>{totalVariasiPreferensi().jumlahStatusRumah.toFixed(2) - 1}</td>
                         <td>{totalVariasiPreferensi().jumlahStatusSiswa.toFixed(2) - 1}</td>
+                        <td>{totalVariasiPreferensi().jumlahJenisBantuan.toFixed(2) - 1}</td>
                     </tr>
                 </tbody>
                 <tfoot>

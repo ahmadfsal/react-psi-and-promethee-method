@@ -45,3 +45,10 @@ export const STATUS_SISWA = {
     PIATU: 'Piatu',
     LENGKAP: 'Lengkap'
 }
+
+export const JENIS_BANTUAN = {
+    KIP: 'Kartu Indonesia Pintar (KIP)',
+    KKS: 'Kartu Keluarga Sejahtera',
+    SKTM: 'Surat Keterangan Tidak Mampu (SKTM)',
+    TIDAK_ADA: 'Tidak Ada'
+}

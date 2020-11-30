@@ -3,7 +3,7 @@ import { Box, Table } from 'libs'
 import {
     cekBobotPekerjaan,
     cekBobotPenghasilan,
-    cekBobotStatusRumah,
+    cekBobotJenisBantuan,
     cekBobotStatusSiswa
 } from 'shared/utils'
 
@@ -14,14 +14,14 @@ const TableKriteria = ({ data }) => {
                 <Table>
                     <thead>
                         <tr>
-                            <td rowSpan={2}>Alternatif</td>
+                            <td rowSpan={2}>Nama</td>
                             <td colSpan={4} className="has-text-centered">Kriteria</td>
                         </tr>
                         <tr>
                             <td>Pekerjaan Orang Tua</td>
                             <td>Penghasilan Orang Tua</td>
                             <td>Status Siswa</td>
-                            <td>Status Rumah</td>
+                            <td>Jenis Bantuan</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,7 +37,7 @@ const TableKriteria = ({ data }) => {
                                         {cekBobotStatusSiswa(item.status_siswa)}
                                     </td>
                                     <td>
-                                        {cekBobotStatusRumah(item.status_rumah)}
+                                        {cekBobotJenisBantuan(item.jenis_bantuan)}
                                     </td>
                                 </tr>
                             )

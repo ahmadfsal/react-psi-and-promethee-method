@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useRef, useEffect } from 'react'
-import { Button } from 'libs'
+import { Button, Column, Columns } from 'libs'
 import { Helmet } from 'react-helmet'
 import { API_URL } from 'constant'
 import { reject } from 'underscore'
@@ -21,11 +21,11 @@ const Report = () => {
             if (checked) setCheckedItems(dataPengajuan)
             else setCheckedItems([])
         } else {
-            if (checked) setCheckedItems(prevValue => [...prevValue, item])
+            if (checked) setCheckedItems((prevValue) => [...prevValue, item])
             else {
                 const arrayWithoutUncheckedRow = reject(
                     checkedItems,
-                    val => val.id === item.id
+                    (val) => val.id === item.id
                 )
                 setCheckedItems(arrayWithoutUncheckedRow)
             }
@@ -51,19 +51,40 @@ const Report = () => {
     return (
         <Fragment>
             <Helmet title='Laporan Metode PSI | SPK' />
-            <div className='level mb-5 '>
-                <div className='level-left has-text-weight-medium is-size-5 has-text-black'>
-                    Daftar Penerima Beasiswa PIP
-                </div>
-                <div className='level-right'>
+
+            <Columns>
+                <Column className='is-11'>
+                    <div
+                        className='has-text-weight-bold is-size-5'
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        Daftar Penerima Program Indonesia Pintar (PIP)
+                    </div>
+
+                    <div
+                        className='has-text-weight-bold is-size-5'
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                    >
+                        Pada SMKN 1 Jamblang Tahun 2020
+                    </div>
+                </Column>
+                <Column className='is-1'>
                     <ReactToPrint
                         content={() => printRef.current}
                         trigger={() => (
                             <Button className='is-link'>Print</Button>
                         )}
                     />
-                </div>
-            </div>
+                </Column>
+            </Columns>
 
             <div style={{ display: 'none' }}>
                 <Print

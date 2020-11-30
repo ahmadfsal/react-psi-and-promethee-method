@@ -4,8 +4,9 @@ import { Button, Column, Columns, Dropdown, Input, Modal } from 'libs'
 const ModalBuatPengajuan = ({
     dataPekerjaan,
     dataPenghasilan,
-    dataStatusRumah,
+    dataProgramBantuan,
     dataStatusSiswa,
+    dataJurusan,
     formData,
     handleBuatPengajuan,
     handleChangeInputForm,
@@ -15,11 +16,8 @@ const ModalBuatPengajuan = ({
     modalType,
 }) => {
     const handlerSimpan = () => {
-        if (modalType === 'BUAT') {
-            handleBuatPengajuan()
-        } else {
-            handleEditPengajuan()
-        }
+        if (modalType === 'BUAT') handleBuatPengajuan()
+        else handleEditPengajuan()
     }
 
     return (
@@ -39,28 +37,49 @@ const ModalBuatPengajuan = ({
                     />
                 </Column>
             </Columns>
+
             <Columns>
                 <Column>
                     <Input
-                        label='Alternatif'
-                        placeholder='Masukkan nama alternatif'
+                        label='Nama Lengkap'
+                        placeholder='Masukkan Nama Lengkap'
                         name='alternatif'
                         value={formData.alternatif}
                         onChange={(e) => handleChangeInputForm(e)}
                     />
                 </Column>
             </Columns>
+
             <Columns>
                 <Column>
-                    <Input
+                    <Dropdown
                         label='Kelas'
-                        placeholder='Masukkan kelas'
+                        placeholder='Pilih kelas'
                         name='kelas'
+                        objectValue={[
+                            { text: 'X', value: 'X' },
+                            { text: 'XI', value: 'XI' },
+                            { text: 'XII', value: 'XII' },
+                        ]}
                         value={formData.kelas}
                         onChange={(e) => handleChangeInputForm(e)}
                     />
                 </Column>
             </Columns>
+
+            <Columns>
+                <Column>
+                    <Dropdown
+                        label='Pilih Kejuruan'
+                        placeholder='Pilih Kejuruan'
+                        name='jurusan'
+                        objectValue={dataJurusan}
+                        value={formData.jurusan}
+                        onChange={(e) => handleChangeInputForm(e)}
+                    />
+                </Column>
+            </Columns>
+
             <Columns>
                 <Column>
                     <Dropdown
@@ -73,6 +92,7 @@ const ModalBuatPengajuan = ({
                     />
                 </Column>
             </Columns>
+
             <Columns>
                 <Column>
                     <Dropdown
@@ -85,6 +105,7 @@ const ModalBuatPengajuan = ({
                     />
                 </Column>
             </Columns>
+            
             <Columns>
                 <Column>
                     <Dropdown
@@ -97,14 +118,15 @@ const ModalBuatPengajuan = ({
                     />
                 </Column>
             </Columns>
+            
             <Columns>
                 <Column>
                     <Dropdown
-                        label='Status Rumah'
-                        placeholder='Pilih status rumah'
-                        name='status_rumah'
-                        objectValue={dataStatusRumah}
-                        value={formData.status_rumah}
+                        label='Jenis Program Bantuan'
+                        placeholder='Pilih Jenis Program Bantuan'
+                        name='jenis_bantuan'
+                        objectValue={dataProgramBantuan}
+                        value={formData.jenis_bantuan}
                         onChange={(e) => handleChangeInputForm(e)}
                     />
                 </Column>

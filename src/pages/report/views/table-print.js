@@ -10,8 +10,9 @@ const TablePengajuanPrint = ({ dataPengajuan }) => {
                         <tr>
                             <td>No</td>
                             <th>NISN</th>
-                            <th>Alternatif</th>
+                            <th>Nama</th>
                             <th>Kelas</th>
+                            <th>Kejuruan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -22,6 +23,7 @@ const TablePengajuanPrint = ({ dataPengajuan }) => {
                                     <td>{item.nisn ?? '-'}</td>
                                     <td>{item.alternatif ?? '-'}</td>
                                     <td>{item.kelas ?? '-'}</td>
+                                    <td>{item.jurusan ?? '-'}</td>
                                 </tr>
                             )
                         })}

@@ -8,14 +8,14 @@ const TableAlternatif = ({ data }) => {
                 <Table>
                     <thead>
                         <tr>
-                            <td rowSpan={2}>Alternatif</td>
+                            <td rowSpan={2}>Nama</td>
                             <td colSpan={4} className="has-text-centered">Kriteria</td>
                         </tr>
                         <tr>
                             <td>Pekerjaan Orang Tua</td>
                             <td>Penghasilan Orang Tua</td>
                             <td>Status Siswa</td>
-                            <td>Status Rumah</td>
+                            <td>Jenis Bantuan</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,7 +26,7 @@ const TableAlternatif = ({ data }) => {
                                     <td>{item.pekerjaan}</td>
                                     <td>{item.penghasilan}</td>
                                     <td>{item.status_siswa}</td>
-                                    <td>{item.status_rumah}</td>
+                                    <td>{item.jenis_bantuan}</td>
                                 </tr>
                             )
                         })}

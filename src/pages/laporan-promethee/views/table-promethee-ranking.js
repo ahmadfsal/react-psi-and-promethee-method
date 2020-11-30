@@ -3,7 +3,7 @@ import { Box, Table } from 'libs'
 import {
     cekBobotPekerjaan,
     cekBobotPenghasilan,
-    cekBobotStatusRumah,
+    cekBobotJenisBantuan,
     cekBobotStatusSiswa
 } from 'shared/utils'
 
@@ -19,10 +19,10 @@ const TablePrometheeRanking = ({ data }) => {
             const bobotStatusSiswa = cekBobotStatusSiswa(i.status_siswa) - cekBobotStatusSiswa(item.status_siswa)
             const hasilStatusSiswa = bobotStatusSiswa <= 0 ? 0 : 1
 
-            const bobotStatusRumah = cekBobotStatusRumah(i.status_rumah) - cekBobotStatusRumah(item.status_rumah)
-            const hasilStatusRumah = bobotStatusRumah <= 0 ? 0 : 1
+            const bobotJenisBantuan = cekBobotJenisBantuan(i.jenis_bantuan) - cekBobotJenisBantuan(item.jenis_bantuan)
+            const hasilJenisBantuan = bobotJenisBantuan <= 0 ? 0 : 1
 
-            const total = hasilPekerjaan + hasilPenghasilan + hasilStatusSiswa + hasilStatusRumah
+            const total = hasilPekerjaan + hasilPenghasilan + hasilStatusSiswa + hasilJenisBantuan
 
             return 1/4 * total
         })
@@ -66,7 +66,7 @@ const TablePrometheeRanking = ({ data }) => {
                 <thead>
                     <tr>
                         <td>NISN</td>
-                        <td>Alternatif</td>
+                        <td>Nama Lengkap</td>
                         <td>Kelas</td>
                         <td>Leveling Flow</td>
                         <td>Nilai Leveling Flow</td>

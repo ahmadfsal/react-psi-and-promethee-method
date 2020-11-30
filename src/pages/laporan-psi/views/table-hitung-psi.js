@@ -3,7 +3,7 @@ import { Box, Table } from 'libs'
 import {
     cekBobotPekerjaan,
     cekBobotPenghasilan,
-    cekBobotStatusRumah,
+    cekBobotJenisBantuan,
     cekBobotStatusSiswa
 } from 'shared/utils'
 
@@ -27,9 +27,9 @@ const TableHitungPsi = ({ dataAlternatif }) => {
         return totalResult / dataAlternatif.length
     }
 
-    const totalBobotStatusRumah = () => {
+    const totalBobotJenisBantuan = () => {
         const totalList = dataAlternatif.map(
-            (item) => parseInt(cekBobotStatusRumah(item.status_rumah)) / 4
+            (item) => parseInt(cekBobotJenisBantuan(item.jenis_bantuan)) / 4
         )
         const totalResult = totalList.reduce((acc, curr) => acc + curr, 0)
 
@@ -62,13 +62,13 @@ const TableHitungPsi = ({ dataAlternatif }) => {
         })
         const jumlahPenghasilan = penghasilan.reduce((acc, curr) => acc + curr, 0)
 
-        const statusRumah = dataAlternatif.map(item => {
+        const jenisBantuan = dataAlternatif.map(item => {
             return Math.pow(
-                cekBobotStatusRumah(item.status_rumah) - totalBobotStatusRumah(),
+                cekBobotJenisBantuan(item.jenis_bantuan) - totalBobotJenisBantuan(),
                 2
             )
         })
-        const jumlahStatusRumah = statusRumah.reduce((acc, curr) => acc + curr, 0)
+        const jumlahJenisBantuan = jenisBantuan.reduce((acc, curr) => acc + curr, 0)
 
         const statusSiswa = dataAlternatif.map(item => {
             return Math.pow(
@@ -81,7 +81,7 @@ const TableHitungPsi = ({ dataAlternatif }) => {
         return {
             jumlahPekerjaan,
             jumlahPenghasilan,
-            jumlahStatusRumah,
+            jumlahJenisBantuan,
             jumlahStatusSiswa
         }
     }
@@ -90,14 +90,14 @@ const TableHitungPsi = ({ dataAlternatif }) => {
         const {
             jumlahPekerjaan,
             jumlahPenghasilan,
-            jumlahStatusRumah,
+            jumlahJenisBantuan,
             jumlahStatusSiswa
         } = totalVariasiPreferensi()
 
         const kriteria = {
             jumlahPekerjaan,
             jumlahPenghasilan,
-            jumlahStatusRumah,
+            jumlahJenisBantuan,
             jumlahStatusSiswa
         }
 
@@ -123,9 +123,9 @@ const TableHitungPsi = ({ dataAlternatif }) => {
 		return hasil
 	}
 
-	const psiStatusRumah = (item) => {
-		const bobot = parseInt(cekBobotStatusRumah(item))/4
-		const kriteriaBobot = totalVariasiPreferensi().jumlahStatusRumah / total()
+	const psiJenisBantuan = (item) => {
+		const bobot = parseInt(cekBobotJenisBantuan(item))/4
+		const kriteriaBobot = totalVariasiPreferensi().jumlahJenisBantuan / total()
 		const hasil = 1 * bobot * kriteriaBobot
 
 		return hasil
@@ -144,14 +144,14 @@ const TableHitungPsi = ({ dataAlternatif }) => {
     		<Table>
     			<thead>
     				<tr>
-    					<td rowSpan="2">Alternatif</td>
+    					<td rowSpan="2">Nama</td>
     					<td colSpan="4" className="has-text-centered">Kriteria</td>
     				</tr>
     				<tr>
     					<td>Pekerjaan</td>
     					<td>Penghasilan</td>
-    					<td>Status Rumah</td>
     					<td>Status Siswa</td>
+    					<td>Jenis Bantuan</td>
     				</tr>
     			</thead>
     			<tbody>
@@ -160,8 +160,8 @@ const TableHitungPsi = ({ dataAlternatif }) => {
     						<td>{item.alternatif}</td>
     						<td>{psiPekerjaan(item.pekerjaan)}</td>
     						<td>{psiPenghasilan(item.penghasilan)}</td>
-    						<td>{psiStatusRumah(item.status_rumah)}</td>
     						<td>{psiStatusSiswa(item.status_siswa)}</td>
+    						<td>{psiJenisBantuan(item.jenis_bantuan)}</td>
     					</tr>
     				))}
     			</tbody>

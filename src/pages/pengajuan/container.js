@@ -14,12 +14,13 @@ import Print from './views/print'
 const Pengajuan = () => {
     const defaultFormData = {
         nisn: '',
-        alternatif: '',
+        alternatif: '', // Nama Lengkap
         kelas: '',
+        jurusan: '', // Kejuruan
         pekerjaan: '',
         penghasilan: '',
-        status_rumah: '',
-        status_siswa: ''
+        status_siswa: '',
+        jenis_bantuan: ''
     }
     const defaultModalDeletePengajuan = {
         isShow: false,
@@ -31,8 +32,9 @@ const Pengajuan = () => {
     const [dataPengajuan, setDataPengajuan] = useState([])
     const [formData, setFormData] = useState(defaultFormData)
     const [dataPenghasilan, setDataPenghasilan] = useState([])
-    const [dataStatusRumah, setDataStatusRumah] = useState([])
+    const [dataProgramBantuan, setDataProgramBantuan] = useState([])
     const [dataStatusSiswa, setDataStatusSiswa] = useState([])
+    const [dataJurusan, setDataJurusan] = useState([])
     const [showModalPengajuan, setShowModalPengajuan] = useState(false)
     const [modalType, setModalType] = useState('BUAT')
     const [idPengajuan, setIdPengajuan] = useState(null)
@@ -92,10 +94,11 @@ const Pengajuan = () => {
                         nisn: data.nisn,
                         alternatif: data.alternatif,
                         kelas: data.kelas,
+                        jurusan: data.jurusan,
                         pekerjaan: data.pekerjaan,
                         penghasilan: data.penghasilan,
-                        status_rumah: data.status_rumah,
-                        status_siswa: data.status_siswa
+                        status_siswa: data.status_siswa,
+                        jenis_bantuan: data.jenis_bantuan,
                     }))
                 }
             })
@@ -186,25 +189,6 @@ const Pengajuan = () => {
             .catch((err) => console.log(err))
     }
 
-    const fetchDataStatusRumah = () => {
-        axios
-            .get(`${API_URL}/status-rumah`)
-            .then((res) => {
-                if (res.data) {
-                    let initialArr = []
-
-                    res.data.map((item) => {
-                        initialArr.push({
-                            value: item.sub_kriteria,
-                            text: item.sub_kriteria
-                        })
-                    })
-                    setDataStatusRumah(initialArr)
-                }
-            })
-            .catch((err) => console.log(err))
-    }
-
     const fetchDataStatusSiswa = () => {
         axios
             .get(`${API_URL}/status-siswa`)
@@ -224,12 +208,51 @@ const Pengajuan = () => {
             .catch((err) => console.log(err))
     }
 
+    const fetchDataJurusan = () => {
+        axios
+            .get(`${API_URL}/jurusan`)
+            .then((res) => {
+                if (res.data) {
+                    let initialArr = []
+
+                    res.data.map((item) => {
+                        initialArr.push({
+                            value: item.alias,
+                            text: item.alias
+                        })
+                    })
+                    setDataJurusan(initialArr)
+                }
+            })
+            .catch((err) => console.log(err))
+    }
+
+    const fetchDataProgramBantuan = () => {
+        axios
+            .get(`${API_URL}/program-bantuan`)
+            .then((res) => {
+                if (res.data) {
+                    let initialArr = []
+
+                    res.data.map((item) => {
+                        initialArr.push({
+                            value: item.sub_kriteria,
+                            text: item.sub_kriteria
+                        })
+                    })
+                    setDataProgramBantuan(initialArr)
+                }
+            })
+            .catch((err) => console.log(err))
+    }
+
     const fetchInitialMasterData = () => {
         fetchDataPengajuan()
         fetchDataPekerjaan()
         fetchDataPenghasilan()
-        fetchDataStatusRumah()
         fetchDataStatusSiswa()
+        fetchDataJurusan()
+        fetchDataProgramBantuan()
     }
 
     useEffect(() => {
@@ -268,7 +291,7 @@ const Pengajuan = () => {
                         content={() => printRef.current}
                         trigger={() => (
                             <Button
-                                className='is-info is-disabled'
+                                className='is-info is-disabled ml-3'
                                 disabled={dataToPrint === '' || dataToPrint <= 0}
                             >
                                 Print
@@ -289,8 +312,9 @@ const Pengajuan = () => {
             <ModalBuatPengajuan
                 dataPekerjaan={dataPekerjaan}
                 dataPenghasilan={dataPenghasilan}
-                dataStatusRumah={dataStatusRumah}
                 dataStatusSiswa={dataStatusSiswa}
+                dataJurusan={dataJurusan}
+                dataProgramBantuan={dataProgramBantuan}
                 formData={formData}
                 handleBuatPengajuan={handleBuatPengajuan}
                 handleChangeInputForm={handleChangeInputForm}

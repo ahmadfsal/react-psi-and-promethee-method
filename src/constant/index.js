@@ -4,5 +4,6 @@ export {
     PEKERJAAN,
     PENGHASILAN,
     STATUS_RUMAH,
-    STATUS_SISWA
+    STATUS_SISWA,
+    JENIS_BANTUAN
 } from './general'

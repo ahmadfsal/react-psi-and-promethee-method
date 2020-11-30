@@ -1,11 +1,7 @@
 import React, { memo, Fragment } from 'react'
-import { Button, Table } from 'libs'
+import { Table } from 'libs'
 
-const TablePengajuan = ({
-    dataPengajuan,
-    handleEditItem,
-    handleModalDeletePengajuan,
-}) => {
+const TableToPrint = ({ dataPengajuan }) => {
     return (
         <Fragment>
             {dataPengajuan.length >= 1 ? (
@@ -21,7 +17,6 @@ const TablePengajuan = ({
                             <th>Penghasilan Orang Tua</th>
                             <th>Status Siswa</th>
                             <th>Jenis Bantuan</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,20 +32,6 @@ const TablePengajuan = ({
                                     <td>{item.penghasilan ?? '-'}</td>
                                     <td>{item.status_siswa ?? '-'}</td>
                                     <td>{item.jenis_bantuan ?? '-'}</td>
-                                    <td>
-                                        <Button
-                                            className='is-info is-light mr-1'
-                                            onClick={() => handleEditItem(item.id)}
-                                        >
-                                            Edit
-                                        </Button>
-                                        <Button
-                                            className='is-danger is-light'
-                                            onClick={() => handleModalDeletePengajuan(item.id)}
-                                        >
-                                            Hapus
-                                        </Button>
-                                    </td>
                                 </tr>
                             )
                         })}
@@ -63,4 +44,4 @@ const TablePengajuan = ({
     )
 }
 
-export default memo(TablePengajuan)
+export default memo(TableToPrint)

@@ -3,7 +3,7 @@ import { Box, Table } from 'libs'
 import {
     cekBobotPekerjaan,
     cekBobotPenghasilan,
-    cekBobotStatusRumah,
+    cekBobotJenisBantuan,
     cekBobotStatusSiswa
 } from 'shared/utils'
 
@@ -16,7 +16,7 @@ const TableNilaiAlternatif = ({ data }) => {
                         <thead>
                             <tr>
                                 <td rowSpan={data.length}>{i.alternatif}</td>
-                                <td rowSpan={2}>Alternatif</td>
+                                <td rowSpan={2}>Nama</td>
                                 <td colSpan={6} className='has-text-centered'>
                                     Kriteria
                                 </td>
@@ -25,7 +25,7 @@ const TableNilaiAlternatif = ({ data }) => {
                                 <td>Pekerjaan Orang Tua</td>
                                 <td>Penghasilan Orang Tua</td>
                                 <td>Status Siswa</td>
-                                <td>Status Rumah</td>
+                                <td>Jenis Bantuan</td>
                                 <td>Total Nilai Preferensi</td>
                                 <td>Indeks Preferensi Multikriteria</td>
                             </tr>
@@ -41,10 +41,10 @@ const TableNilaiAlternatif = ({ data }) => {
                                 const bobotStatusSiswa = cekBobotStatusSiswa(i.status_siswa) - cekBobotStatusSiswa(item.status_siswa)
                                 const hasilStatusSiswa = bobotStatusSiswa <= 0 ? 0 : 1
 
-                                const bobotStatusRumah = cekBobotStatusRumah(i.status_rumah) - cekBobotStatusRumah(item.status_rumah)
-                                const hasilStatusRumah = bobotStatusRumah <= 0 ? 0 : 1
+                                const bobotJenisBantuan = cekBobotJenisBantuan(i.jenis_bantuan) - cekBobotJenisBantuan(item.jenis_bantuan)
+                                const hasilJenisBantuan = bobotJenisBantuan <= 0 ? 0 : 1
 
-                                const total = hasilPekerjaan + hasilPenghasilan + hasilStatusSiswa + hasilStatusRumah
+                                const total = hasilPekerjaan + hasilPenghasilan + hasilStatusSiswa + hasilJenisBantuan
 
                                 const indeksPreferensiMultikriteria = 1/4 * total
 
@@ -55,7 +55,7 @@ const TableNilaiAlternatif = ({ data }) => {
                                         <td>{hasilPekerjaan}</td>
                                         <td>{hasilPenghasilan}</td>
                                         <td>{hasilStatusSiswa}</td>
-                                        <td>{hasilStatusRumah}</td>
+                                        <td>{hasilJenisBantuan}</td>
                                         <td>{total}</td>
                                         <td>{indeksPreferensiMultikriteria}</td>
                                     </tr>

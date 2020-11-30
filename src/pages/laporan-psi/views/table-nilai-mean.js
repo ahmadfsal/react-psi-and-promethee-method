@@ -1,9 +1,9 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo } from 'react'
 import { Box, Table } from 'libs'
 import {
     cekBobotPekerjaan,
     cekBobotPenghasilan,
-    cekBobotStatusRumah,
+    cekBobotJenisBantuan,
     cekBobotStatusSiswa
 } from 'shared/utils'
 
@@ -26,9 +26,9 @@ const TableNilaiMean = ({ dataAlternatif }) => {
         return totalResult
     }
 
-    const totalBobotStatusRumah = () => {
+    const totalBobotJenisBantuan = () => {
         const totalList = dataAlternatif.map(
-            (item) => parseInt(cekBobotStatusRumah(item.status_rumah)) / 4
+            (item) => parseInt(cekBobotJenisBantuan(item.jenis_bantuan)) / 4
         )
         const totalResult = totalList.reduce((acc, curr) => acc + curr, 0)
 
@@ -52,7 +52,7 @@ const TableNilaiMean = ({ dataAlternatif }) => {
                         <th>Nilai Mean</th>
                         <th>Pekerjaan</th>
                         <th>Penghasilan</th>
-                        <th>Status Rumah</th>
+                        <th>Jenis Kriteria Program Bantuan</th>
                         <th>Status Siswa</th>
                     </tr>
                 </thead>
@@ -61,7 +61,7 @@ const TableNilaiMean = ({ dataAlternatif }) => {
                         <td></td>
                         <td>{totalBobotPekerjaan()}</td>
                         <td>{totalBobotPenghasilan()}</td>
-                        <td>{totalBobotStatusRumah()}</td>
+                        <td>{totalBobotJenisBantuan()}</td>
                         <td>{totalBobotStatusSiswa()}</td>
                     </tr>
                 </tbody>
@@ -73,8 +73,8 @@ const TableNilaiMean = ({ dataAlternatif }) => {
                         <th>Nilai Mean</th>
                         <th>Pekerjaan</th>
                         <th>Penghasilan</th>
-                        <th>Status Rumah</th>
                         <th>Status Siswa</th>
+                        <th>Jenis Bantuan</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,10 +87,10 @@ const TableNilaiMean = ({ dataAlternatif }) => {
                             {totalBobotPenghasilan() / dataAlternatif.length}
                         </td>
                         <td>
-                            {totalBobotStatusRumah() / dataAlternatif.length}
+                            {totalBobotStatusSiswa() / dataAlternatif.length}
                         </td>
                         <td>
-                            {totalBobotStatusSiswa() / dataAlternatif.length}
+                            {totalBobotJenisBantuan() / dataAlternatif.length}
                         </td>
                     </tr>
                 </tbody>

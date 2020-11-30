@@ -3,7 +3,7 @@ import { Box, Table } from 'libs'
 import {
     cekBobotPekerjaan,
     cekBobotPenghasilan,
-    cekBobotStatusRumah,
+    cekBobotJenisBantuan,
     cekBobotStatusSiswa
 } from 'shared/utils'
 
@@ -14,14 +14,14 @@ const TableMatrix = ({ dataAlternatif }) => {
                 <Table>
                     <thead>
                         <tr>
-                            <td rowSpan="2">Alternatif</td>
+                            <td rowSpan="2">Nama</td>
                             <td colSpan="4" className="has-text-centered">Kriteria</td>
                         </tr>
                         <tr>
                             <td>Pekerjaan</td>
                             <td>Penghasilan</td>
-                            <td>Status Rumah</td>
                             <td>Status Siswa</td>
+                            <td>Jenis Bantuan</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,10 +36,10 @@ const TableMatrix = ({ dataAlternatif }) => {
                                         {1 / parseInt(cekBobotPenghasilan(item.penghasilan))}
                                     </td>
                                     <td>
-                                        {parseInt(cekBobotStatusRumah(item.status_rumah)) / 4}
+                                        {parseInt(cekBobotStatusSiswa(item.status_siswa)) / 4}
                                     </td>
                                     <td>
-                                        {parseInt(cekBobotStatusSiswa(item.status_siswa)) / 4}
+                                        {parseInt(cekBobotJenisBantuan(item.jenis_bantuan)) / 4}
                                     </td>
                                 </tr>
                             )

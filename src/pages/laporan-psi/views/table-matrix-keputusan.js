@@ -1,9 +1,9 @@
-import React, { memo, Fragment } from 'react'
+import React, { memo } from 'react'
 import { Box, Table } from 'libs'
 import {
     cekBobotPekerjaan,
     cekBobotPenghasilan,
-    cekBobotStatusRumah,
+    cekBobotJenisBantuan,
     cekBobotStatusSiswa
 } from 'shared/utils'
 
@@ -14,14 +14,14 @@ const TableMatrixKeputusan = ({ dataAlternatif }) => {
                 <Table>
                     <thead>
                         <tr>
-                            <td rowSpan="2">Alternatif</td>
+                            <td rowSpan="2">Nama</td>
                             <td colSpan="4" className="has-text-centered">Kriteria</td>
                         </tr>
                         <tr>
                             <td>Pekerjaan</td>
                             <td>Penghasilan</td>
-                            <td>Status Rumah</td>
                             <td>Status Siswa</td>
+                            <td>Jenis Bantuan</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,10 +34,10 @@ const TableMatrixKeputusan = ({ dataAlternatif }) => {
                                         {cekBobotPenghasilan(item.penghasilan)}
                                     </td>
                                     <td>
-                                        {cekBobotStatusRumah(item.status_rumah)}
+                                        {cekBobotStatusSiswa(item.status_siswa)}
                                     </td>
                                     <td>
-                                        {cekBobotStatusSiswa(item.status_siswa)}
+                                        {cekBobotJenisBantuan(item.jenis_bantuan)}
                                     </td>
                                 </tr>
                             )

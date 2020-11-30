@@ -3,7 +3,7 @@ import { Box, Table } from 'libs'
 import {
     cekBobotPekerjaan,
     cekBobotPenghasilan,
-    cekBobotStatusRumah,
+    cekBobotJenisBantuan,
     cekBobotStatusSiswa
 } from 'shared/utils'
 
@@ -28,7 +28,7 @@ const TableVariasiPreferensi = ({ dataAlternatif }) => {
 
     const totalBobotStatusRumah = () => {
         const totalList = dataAlternatif.map(
-            (item) => parseInt(cekBobotStatusRumah(item.status_rumah)) / 4
+            (item) => parseInt(cekBobotJenisBantuan(item.jenis_bantuan)) / 4
         )
         const totalResult = totalList.reduce((acc, curr) => acc + curr, 0)
 
@@ -63,7 +63,7 @@ const TableVariasiPreferensi = ({ dataAlternatif }) => {
 
         const statusRumah = dataAlternatif.map(item => {
             return Math.pow(
-                cekBobotStatusRumah(item.status_rumah) - totalBobotStatusRumah(),
+                cekBobotJenisBantuan(item.jenis_bantuan) - totalBobotStatusRumah(),
                 2
             )
         })
@@ -90,14 +90,14 @@ const TableVariasiPreferensi = ({ dataAlternatif }) => {
             <Table>
                 <thead>
                     <tr>
-                        <td rowSpan="2">Alternatif</td>
+                        <td rowSpan="2">Nama</td>
                         <td colSpan="4" className="has-text-centered">Kriteria</td>
                     </tr>
                     <tr>
                         <td>Pekerjaan</td>
                         <td>Penghasilan</td>
-                        <td>Status Rumah</td>
                         <td>Status Siswa</td>
+                        <td>Jenis Bantuan</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -121,15 +121,15 @@ const TableVariasiPreferensi = ({ dataAlternatif }) => {
                                 </td>
                                 <td>
                                     {Math.pow(
-                                        cekBobotStatusRumah(item.status_rumah) -
-                                            totalBobotStatusRumah(),
+                                        cekBobotStatusSiswa(item.status_siswa) -
+                                            totalBobotStatusSiswa(),
                                         2
                                     )}
                                 </td>
                                 <td>
                                     {Math.pow(
-                                        cekBobotStatusSiswa(item.status_siswa) -
-                                            totalBobotStatusSiswa(),
+                                        cekBobotJenisBantuan(item.jenis_bantuan) -
+                                            totalBobotStatusRumah(),
                                         2
                                     )}
                                 </td>

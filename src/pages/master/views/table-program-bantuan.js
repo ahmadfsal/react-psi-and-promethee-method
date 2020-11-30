@@ -1,10 +1,10 @@
 import React, { memo } from 'react'
 import { Box, Table } from 'libs'
 
-const TableStatusRumah = ({ dataStatusRumah }) => {
+const TableProgramBantuan = ({ dataProgramBantuan }) => {
     return (
-        <Box title='Status Rumah'>
-            {dataStatusRumah.length >= 1 ? (
+        <Box title='Jenis Program Bantuan'>
+            {dataProgramBantuan.length >= 1 ? (
                 <Table>
                     <thead>
                         <tr>
@@ -13,7 +13,7 @@ const TableStatusRumah = ({ dataStatusRumah }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {dataStatusRumah?.map((item, index) => {
+                        {dataProgramBantuan?.map((item, index) => {
                             return (
                                 <tr key={index}>
                                     <td>{item.sub_kriteria}</td>
@@ -24,10 +24,10 @@ const TableStatusRumah = ({ dataStatusRumah }) => {
                     </tbody>
                 </Table>
             ) : (
-                <p>Tidak ada data Status Rumah.</p>
+                <p>Tidak ada data Jurusan.</p>
             )}
         </Box>
     )
 }
 
-export default memo(TableStatusRumah)
+export default memo(TableProgramBantuan)

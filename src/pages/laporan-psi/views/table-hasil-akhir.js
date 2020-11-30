@@ -3,7 +3,7 @@ import { Box, Table } from 'libs'
 import {
     cekBobotPekerjaan,
     cekBobotPenghasilan,
-    cekBobotStatusRumah,
+    cekBobotJenisBantuan,
     cekBobotStatusSiswa
 } from 'shared/utils'
 
@@ -26,9 +26,9 @@ const TableHasilAkhir = ({ dataAlternatif }) => {
         return totalResult / dataAlternatif.length
     }
 
-    const totalBobotStatusRumah = () => {
+    const totalBobotJenisBantuan = () => {
         const totalList = dataAlternatif.map(
-            (item) => parseInt(cekBobotStatusRumah(item.status_rumah)) / 4
+            (item) => parseInt(cekBobotJenisBantuan(item.jenis_bantuan)) / 4
         )
         const totalResult = totalList.reduce((acc, curr) => acc + curr, 0)
 
@@ -61,13 +61,13 @@ const TableHasilAkhir = ({ dataAlternatif }) => {
         })
         const jumlahPenghasilan = penghasilan.reduce((acc, curr) => acc + curr, 0)
 
-        const statusRumah = dataAlternatif.map(item => {
+        const jenisBantuan = dataAlternatif.map(item => {
             return Math.pow(
-                cekBobotStatusRumah(item.status_rumah) - totalBobotStatusRumah(),
+                cekBobotJenisBantuan(item.jenis_bantuan) - totalBobotJenisBantuan(),
                 2
             )
         })
-        const jumlahStatusRumah = statusRumah.reduce((acc, curr) => acc + curr, 0)
+        const jumlahJenisBantuan = jenisBantuan.reduce((acc, curr) => acc + curr, 0)
 
         const statusSiswa = dataAlternatif.map(item => {
             return Math.pow(
@@ -80,7 +80,7 @@ const TableHasilAkhir = ({ dataAlternatif }) => {
         return {
             jumlahPekerjaan,
             jumlahPenghasilan,
-            jumlahStatusRumah,
+            jumlahJenisBantuan,
             jumlahStatusSiswa
         }
     }
@@ -89,14 +89,14 @@ const TableHasilAkhir = ({ dataAlternatif }) => {
         const {
             jumlahPekerjaan,
             jumlahPenghasilan,
-            jumlahStatusRumah,
+            jumlahJenisBantuan,
             jumlahStatusSiswa
         } = totalVariasiPreferensi()
 
         const kriteria = {
             jumlahPekerjaan,
             jumlahPenghasilan,
-            jumlahStatusRumah,
+            jumlahJenisBantuan,
             jumlahStatusSiswa
         }
 
@@ -122,9 +122,9 @@ const TableHasilAkhir = ({ dataAlternatif }) => {
         return hasil
     }
 
-    const psiStatusRumah = (item) => {
-        const bobot = parseInt(cekBobotStatusRumah(item))/4
-        const kriteriaBobot = totalVariasiPreferensi().jumlahStatusRumah / total()
+    const psiJenisBantuan = (item) => {
+        const bobot = parseInt(cekBobotJenisBantuan(item))/4
+        const kriteriaBobot = totalVariasiPreferensi().jumlahJenisBantuan / total()
         const hasil = 1 * bobot * kriteriaBobot
 
         return hasil
@@ -142,7 +142,7 @@ const TableHasilAkhir = ({ dataAlternatif }) => {
         const arr = [
             psiPekerjaan(item.pekerjaan),
             psiPenghasilan(item.penghasilan),
-            psiStatusRumah(item.status_rumah),
+            psiJenisBantuan(item.jenis_bantuan),
             psiStatusSiswa(item.status_siswa),
         ]
 
@@ -169,7 +169,7 @@ const TableHasilAkhir = ({ dataAlternatif }) => {
     			<thead>
     				<tr>
                         <td>NISN</td>
-    					<td>Alternatif</td>
+    					<td>Nama</td>
                         <td>Kelas</td>
     					<td>Nilai</td>
     					<td>Ranking</td>
